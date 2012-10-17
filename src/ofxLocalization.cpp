@@ -118,9 +118,25 @@ string ofxLocalization::translateKey(string key){
 }
 
 string ofxLocalization::translateKeyToLanguage(string key, string language){
-	if(translation[currentLanguage].find(key) == translation[currentLanguage].end()){
+	if(translation[language].find(key) == translation[language].end()){
 		ofLogError("ofxLocalization::translateKey") << "Couldn't find key " << key << " in language " << language << endl;
 		return key;
 	}
-	return translation[currentLanguage][key];
+	return translation[language][key];
+}
+
+string ofxLocalization::keyForTranslation(string word, string language){
+	map<string, string>::iterator it = translation[language].begin();
+	while(it != translation[language].end()){
+		if(it->second == word){
+			return it->first;
+		}
+		it++;
+	}
+	ofLogError("ofxLocalization::keyForTranslation") << "Couldn't find key for word " << word << " in language " << language;
+	return "";
+}
+
+string ofxLocalization::keyForTranslation(string word){
+	return keyForTranslation(word, currentLanguage);
 }

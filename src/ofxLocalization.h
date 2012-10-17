@@ -44,7 +44,10 @@ class ofxLocalization {
 	void setCurrentLanguage(string language);
 	string translateKey(string key);
 	string translateKeyToLanguage(string key, string language);
+	//slow!
 	
+	string keyForTranslation(string word);
+	string keyForTranslation(string word, string language);
   protected:
 	string currentLanguage;
 	vector<string> languages;
