@@ -106,6 +106,7 @@ string ofxLocalization::getCurrentLanguage(){
 }
 
 void ofxLocalization::setCurrentLanguage(string language){
+	language = ofToLower(language);
 	if(language == "" || translation.find(language) == translation.end()){
 		ofLogError("ofxLocalization::setCurrentLanguage") << "Couldn't find language " << language;
 		return;
@@ -118,14 +119,23 @@ string ofxLocalization::translateKey(string key){
 }
 
 string ofxLocalization::translateKeyToLanguage(string key, string language){
+	language = ofToLower(language);
+
+	if(translation.find(language) == translation.end()){
+		ofLogError("ofxLocalization::translateKey") << "Couldn't find language " << language <<  endl;
+		return key;	
+	}
+
 	if(translation[language].find(key) == translation[language].end()){
-		ofLogError("ofxLocalization::translateKey") << "Couldn't find key " << key << " in language " << language << endl;
+		ofLogError("ofxLocalization::translateKey") << "Couldn't find key " << key << " in language " << language <<  endl;
 		return key;
 	}
 	return translation[language][key];
 }
 
 string ofxLocalization::keyForTranslation(string word, string language){
+	language = ofToLower(language);
+
 	map<string, string>::iterator it = translation[language].begin();
 	while(it != translation[language].end()){
 		if(it->second == word){
