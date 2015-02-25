@@ -33,7 +33,7 @@
 #include "ofxLocalization.h"
 
 bool ofxLocalization::load(string languageFile){
-	languageFile = ofToDataPath(languageFile);
+	//flanguageFile = ofToDataPath(languageFile);
 	if(ofFilePath::getFileExt(languageFile) != "csv"){
 		ofLogError("ofxLocalization::load") << "Expecting CSV file extension: " << languageFile;
 	}
